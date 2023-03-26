@@ -140,3 +140,19 @@ function throttle(callee, timeout) {
   window.addEventListener("scroll", throttle(checkPosition, 1500));
   window.addEventListener("resize", throttle(checkPosition, 1500));
 })();
+
+scrollBtn = document.querySelector(".scroll-top");
+
+window.addEventListener("scroll", () => {
+  if (window.scrollY > 700) {
+    scrollBtn.classList.remove("isHideBtn");
+    scrollBtn.classList.add("isShowBtn");
+  } else if (window.scrollY < 700) {
+    scrollBtn.classList.add("isHideBtn");
+    scrollBtn.classList.remove("isShowBtn");
+  }
+});
+
+scrollBtn.addEventListener("click", () => {
+  window.scrollTo(0, 0);
+});
