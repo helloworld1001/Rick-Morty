@@ -10,7 +10,7 @@ body {
 
 .container {
   margin: 0 auto;
-  font-size: 15px;
+  font-size: 20px;
 }
 .characters-wrapper{
   
@@ -144,6 +144,10 @@ flex-direction: column;
 }
 
 @media (max-width: 1200px) {
+  .container {
+    font-size: 15px;
+  }
+
   .modal-text-right{
     margin-left: 5px;
   }
@@ -210,3 +214,4 @@ flex-direction: column;
   opacity: 0;
   transition: .6s;
 }
+
