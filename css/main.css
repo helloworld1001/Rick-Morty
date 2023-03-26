@@ -6,6 +6,7 @@ body {
 
 .container {
   margin: 0 auto;
+  font-size: 15px;
 }
 .characters-wrapper{
   
@@ -15,6 +16,7 @@ body {
   justify-content: center;
   flex-wrap: wrap;
   width: 100%;
+  
 }
 
 .card-wrapper{
@@ -22,7 +24,6 @@ body {
   height: 22vw;
   margin: 10px;
   margin-bottom: 50px;
-  
 }
 
 .card-content{
@@ -44,15 +45,16 @@ body {
   padding-bottom: 150px;
   margin-left: 10%;
   position: absolute;
-  top: -15%;
+  top: -10%;
   left: -0.5%;
   border-radius: 10px 10px;
-  filter: drop-shadow(5px 5px 10px #000000);
+  filter: drop-shadow(5px 2px 10px #000000);
 }
 
 .character-name {
   margin-bottom: 10%;
   font-weight: 800;
+  text-align: center;
 }
 
 
@@ -124,6 +126,7 @@ body {
   width: 50%;
 display: flex;
 flex-direction: column;
+
 }
 
 .text-title {
@@ -139,8 +142,52 @@ flex-direction: column;
   display: none;
 }
 
+@media (max-width: 1200px) {
+  .modal-text-right{
+    margin-left: 5px;
+  }
 
+  .modal-text-left {
+    position: relative;
+    right: 15px;
+  }
+}
+
+@media (max-width: 700px) {
+  .container {
+    font-size: 12px;
+  }
+
+  .modal-close {
+    width: 20px;
+  }
+}
+
+@media (max-width: 500px) {
+  .container {
+    font-size: 10px;
+  }
+
+  .modal-text-wrapper {
+    width: 35%;
+    
+}
+
+  .character-name {
+    position: relative;
+    top: 7px;
+  }
+
+  .modal-close {
+    width: 10px;
+  }
+}
 /* ---- modal end ----- */
 
-
+@media (max-width: 400px) {
+  .container {
+    font-size: 8px;
+  }
+  
+}
 

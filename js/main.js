@@ -3,10 +3,7 @@ let info = [];
 let basicURL = "https://rickandmortyapi.com/api/character/?page=1";
 
 const charactersWrapper = document.querySelector(".characters-wrapper");
-const btnNext = document.querySelector(".next-btn");
 
-// добавляет html модального окна на страницу
-// можно добавлять сразу кусками html, а не создавать элементы как делали в функции createCards
 const addModal = (image, name, status, species, origin, location, gender) => {
   const fragment = `<div class="modal">
   <div class="modal-content">
@@ -51,9 +48,6 @@ const closeModal = () => {
   });
 };
 
-// забирает id персонажа, ищет в массиве всех персонажей нужного, деструктуризацией достаем из найденного объекта нужные проперти и передаем их в модалку
-// добавляем модалку на страницу, тут же ее открываем
-// добавляем слушатель на закрытие(обязательно при модалке уже отрисованной, иначе крестика еще не существует)
 const getId = (id) => {
   const finded = characters.find((item) => item.id === id);
   const {
@@ -71,9 +65,6 @@ const getId = (id) => {
   closeModal();
 };
 
-// пробегается по массиву с элементами (можешь посмотреть на него в консоли data.result) и для каждого создает карточку,
-//карточки складывает в div charactersWrapper
-// структура html должна получится как ниже в закоменнтированном коде
 const createCards = (data) => {
   if (!data.length) {
     return;
@@ -84,7 +75,6 @@ const createCards = (data) => {
     let cardImg = document.createElement("img");
     let characterName = document.createElement("div");
 
-    // забираем ИД юзера по клику на карточку
     cardContent.onclick = () => getId(data[i].id);
 
     cardWrapper.classList.add("card-wrapper");
@@ -106,7 +96,6 @@ const getCharacters = (url) => {
   fetch(url)
     .then((response) => response.json())
     .then((data) => {
-      // персонажей будем все время добавлять в один объект, чтобы при поиске по ИД не обращаться снова к серверу
       characters = characters.concat(data.results);
       info = data.info;
       console.log(characters);
@@ -117,18 +106,37 @@ const getCharacters = (url) => {
 
 getCharacters(basicURL);
 
-btnNext.onclick = function () {
-  // basicURL = info.next;
-  // console.log(basicURL);
-  getCharacters(info.next);
-};
+function checkPosition() {
+  const height = document.body.offsetHeight;
+  const screenHeight = window.innerHeight;
 
-// структура карточки
-{
-  /* <div class="card-wrapper">
-<div class="card-content" >
-    <img src="./img/Rick.jpeg" alt="character-img" style="border-radius: 10px;" />
-    <div class="character-name" >Rick</div>
-</div>
-</div> */
+  const scrolled = window.scrollY;
+
+  const threshold = height - screenHeight;
+
+  const position = scrolled + screenHeight;
+
+  if (position >= threshold) {
+    getCharacters(info.next);
+  }
 }
+
+function throttle(callee, timeout) {
+  let timer = null;
+
+  return function perform(...args) {
+    if (timer) return;
+
+    timer = setTimeout(() => {
+      callee(...args);
+
+      clearTimeout(timer);
+      timer = null;
+    }, timeout);
+  };
+}
+
+(() => {
+  window.addEventListener("scroll", throttle(checkPosition, 1500));
+  window.addEventListener("resize", throttle(checkPosition, 1500));
+})();
