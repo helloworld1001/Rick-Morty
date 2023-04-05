@@ -4,8 +4,6 @@ let basicURL = "https://rickandmortyapi.com/api/character/?page=1";
 
 const charactersWrapper = document.querySelector(".characters-wrapper");
 
-let preloader = document.querySelector("#preloader");
-
 const addModal = (image, name, status, species, origin, location, gender) => {
   const fragment = `<div class="modal">
   <div class="modal-content">
@@ -61,7 +59,7 @@ const getId = (id) => {
     location: { name: locationName },
     gender,
   } = finded;
-
+  console.log(name, status, species, originName, locationName, gender);
   addModal(image, name, status, species, originName, locationName, gender);
   showModal();
   closeModal();
@@ -105,6 +103,8 @@ const getCharacters = (url) => {
       }, 950);
       characters = characters.concat(data.results);
       info = data.info;
+      console.log(characters);
+      console.log(info);
       createCards(data.results);
     });
 };
