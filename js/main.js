@@ -95,9 +95,14 @@ const createCards = (data) => {
 };
 
 const getCharacters = (url) => {
+  preloader.classList.remove("remove-preloader");
+  preloader.classList.add("hide-preloader");
   fetch(url)
     .then((response) => response.json())
     .then((data) => {
+      setTimeout(() => {
+        preloader.classList.add("remove-preloader");
+      }, 950);
       characters = characters.concat(data.results);
       info = data.info;
       createCards(data.results);
@@ -156,3 +161,10 @@ window.addEventListener("scroll", () => {
 scrollBtn.addEventListener("click", () => {
   window.scrollTo(0, 0);
 });
+
+window.onload = () => {
+  preloader.classList.add("hide-preloader");
+  setTimeout(() => {
+    preloader.classList.add("remove-preloader");
+  }, 950);
+};
