@@ -168,3 +168,4 @@ window.onload = () => {
     preloader.classList.add("remove-preloader");
   }, 950);
 };
+
